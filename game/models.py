@@ -4,14 +4,26 @@ from django.template.defaultfilters import slugify
 # Create your models here.
 class Unit(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    order = models.CharField(max_length=128)
+    currentCity = models.CharField(max_length=128)
+    targetCity = models.CharField(max_length=128)
     slug = models.SlugField(unique=True)
-    city = models.CharField(max_length=128)
     owner = models.CharField(max_length=128)
+    alive = True
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Unit, self).save(*args, **kwargs)
+
+    def recieve_command(self, city):
+        # Prepare to move to the specified city
+        self.targetCity = city
+
+    def execute_command(self, city):
+        # Move the the specified city
+        self.currentCity = self.targetCity
+
+    def die(self):
+        self.alive == False
 
     def __str__(self):
         return self.name
@@ -27,6 +39,10 @@ class City(models.Model):
 
     def add_unit(self, unit):
         self.units[unit.name] = unit
+
+    def remove_unit(self, unit):
+        self.units.pop(unit.name, None)
+
     def __str__(self):
         return self.name
 
@@ -41,6 +57,9 @@ class Player(models.Model):
 
     def add_unit(self, unit):
         self.units[unit.name] = unit
+
+    def remove_unit(self, unit):
+        self.units.pop(unit.name, None)
 
     def __str__(self):
         return self.name

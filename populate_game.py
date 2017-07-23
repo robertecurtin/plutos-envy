@@ -31,7 +31,7 @@ def populate():
             c.add_unit(u)
 
 def add_unit(name, player, city):
-    u = Unit.objects.get_or_create(name=name, owner=player, city=city)[0]
+    u = Unit.objects.get_or_create(name=name, owner=player, currentCity=city)[0]
     return u
 
 def add_city(name, player):

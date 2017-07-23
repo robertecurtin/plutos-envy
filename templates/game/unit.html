@@ -6,7 +6,11 @@
 
     <body>
         {% if unit_name %} 
-            <h1>{{ unit_name }}</h1>
+            {% if alive %}
+                <h1>{{ unit_name }}</h1>
+            {% else %}
+                <h1>The late {{ unit_name }}</h1>
+            {% endif %}
 
             {% if unit_owner %}
                 Owner: {{ unit_owner }}
@@ -16,11 +20,27 @@
 
             <br>
 
-            {% if unit_order %}
-                Order: {{ unit_order }}
+            {% if unit_current_city %}
+                Location: {{ unit_current_city }}
             {% else %}
-                Order: None
+                Location: None
             {% endif %}
+
+            <br>
+            {% if unit_target_city %}
+                Destination: {{ unit_target_city }}
+            {% else %}
+                Destination: None
+            {% endif %}
+
+            <form action="{% url 'orders' unit_name %}" method = "post">
+            {% csrf_token %}
+            {% for city in city_names %}
+            <input type="radio" name="city" id="city{{ forloop.counter }}" value ={{ choice.id }}" />
+            <label "city">{{ city }}</label><br />
+            {% endfor %}
+            <input type="submit" value="Change destination" />
+            <form>
 
         {% else %}
             <strong> This unit does not exist!</strong>

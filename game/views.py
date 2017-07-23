@@ -2,15 +2,24 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from game.models import Unit, City, Player
 # Create your views here.
+# These provide information to the html files under /templates/game, and
+# call the rendering of those pages.
+
+def orders(request, unit_name_slug):
+    return HttpResponse("Aye aye!")
+
 def unit(request, unit_name_slug):
     context_dict = {}
 
     try:
         unit = Unit.objects.get(slug=unit_name_slug)
-        context_dict['unit_name'] = unit.name
-        context_dict['unit_order'] = unit.order
+        cities = City.objects.order_by('name')
+        cityNames = [city.name for city in cities]
+        context_dict['city_names'] = cityNames # Used to determine destination
+        context_dict['unit_name'] = unit.name.rstrip("\n\r")
+        context_dict['unit_target_city'] = unit.targetCity
         context_dict['unit_owner'] = unit.owner
-        context_dict['unit_city'] = unit.city
+        context_dict['unit_current_city'] = unit.currentCity
 
     except Unit.DoesNotExist:
         pass
