@@ -1,0 +1,20 @@
+# Instructions:
+# P <name> = Add player with name <name>
+# C <name> = Add city with name <name>, owned by the last player created
+# U <name> = Add unit with name <name>, owned by the last player created and located at the last city created
+P Ram
+C Louisville
+U Carl
+U Dave
+C J-Town
+P Robert
+C Cincinnati
+U Timson
+U Gregor
+C Columbus-IN
+U Battery
+P Jordan
+C Columbus-OH
+U Pupper
+U Doggo
+

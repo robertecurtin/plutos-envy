@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Django
+*.sqlite3
+game/migrations
+
 # C extensions
 *.so
 
