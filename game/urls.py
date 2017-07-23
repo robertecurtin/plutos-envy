@@ -7,4 +7,5 @@ urlpatterns = [
         url(r'^city/(?P<city_name_slug>[\w\-]+)/$', views.city, name='city'),   
         url(r'^player/(?P<player_name_slug>[\w\-]+)/$', views.player, name='player'),   
         url(r'^orders/(?P<unit_name_slug>[\w\-]+)/$', views.orders, name='orders'),   
+        url(r'^simulateday/$', views.simulate_day_callback),   
         ]

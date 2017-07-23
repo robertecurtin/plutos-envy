@@ -1,9 +1,16 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from game.models import Unit, City, Player
+from game.simulateday import simulate_day
+from game.gamelog import get_game_log_html
 # Create your views here.
 # These provide information to the html files under /templates/game, and
 # call the rendering of those pages.
+
+def simulate_day_callback(request):
+    simulate_day()
+    text = get_game_log_html()
+    return HttpResponse(text)
 
 def orders(request, unit_name_slug):
     return HttpResponse("Aye aye!")
