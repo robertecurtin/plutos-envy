@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>player</title>
+    </head>
+
+    <body>
+        {% if player_name %} 
+            <h1>{{ player_name }}</h1>
+            <h2>Cities owned:</h2>
+            {% for city in player_cities %}
+            <strong><a href="/game/city/{{city.slug}}/">{{city.name}}</a></strong>
+                <br>
+            {% endfor %}
+            <h2>Units owned:</h2>
+            {% for unit in player_units %}
+            <a href="/game/unit/{{unit.slug}}/">{{ unit.name }}</a> 
+                <br>
+            {% endfor %}
+        {% else %}
+            <strong> This player does not exist!</strong>
+        {% endif %}
+    </body>
+</html>

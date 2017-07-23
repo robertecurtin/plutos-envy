@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Unit</title>
+    </head>
+
+    <body>
+        {% if unit_name %} 
+            <h1>{{ unit_name }}</h1>
+
+            {% if unit_owner %}
+                Owner: {{ unit_owner }}
+            {% else %}
+                Owner: None
+            {% endif %}
+
+            <br>
+
+            {% if unit_order %}
+                Order: {{ unit_order }}
+            {% else %}
+                Order: None
+            {% endif %}
+
+        {% else %}
+            <strong> This unit does not exist!</strong>
+        {% endif %}
+    </body>
+</html>

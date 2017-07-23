@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>City</title>
+    </head>
+
+    <body>
+        {% if city_name %} 
+            <h1>{{ city_name }}</h1>
+            {% if city_owner %}
+                <h2> Owned by {{city_owner}}</h2>
+            {% else %}
+            <h2> Not yet owned</h2>
+            {% endif %}
+            <h2>Units in this city:</h2>
+            {% for unit in city_units %}
+            <a href="/game/unit/{{unit.slug}}/">{{ unit.name }}</a> 
+            <br>
+            {% endfor %}
+        {% else %}
+            <strong> This city does not exist!</strong>
+        {% endif %}
+    </body>
+</html>
