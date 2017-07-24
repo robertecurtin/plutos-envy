@@ -20,7 +20,7 @@ def populate():
             continue
         if len(split) == 1:
             continue
-        name = ' '.join(split[1:len(split)])
+        name = ' '.join(split[1:len(split)]).rstrip("\n")
         print(name)
         if instruction == "P":
             p = add_player(name)
@@ -28,7 +28,7 @@ def populate():
             c = add_city(name, p)
         elif instruction == 'U':
             u = add_unit(name, p, c)
-            c.add_unit(u)
+            p.add_unit(u)
 
 def add_unit(name, player, city):
     u = Unit.objects.get_or_create(name=name, owner=player, currentCity=city)[0]

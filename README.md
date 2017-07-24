@@ -14,6 +14,10 @@ Run InitialSetup.sh to set up the database and create an admin account.
 /game/unit/<unit-name>
     Provides information about the named unit
 
+## Helpful scripts
+   RefreshDatabase.sh: Refreshes and re-populates the database. Do this after making a change to a class.
+   InitialSetup.sh: Sets up the database. If you already have a database, it will delete it and start from scratch.
+   RunServer.sh: Starts a LAN server. See below for more details. 
 ### LAN server setup
 If you want to run the server on one computer and connect from other computers on the network, use RunServer.bat.
 Note that you will need to update ALLOWED_HOSTS under PlutosEnvy/settings.py with your internal IP address.

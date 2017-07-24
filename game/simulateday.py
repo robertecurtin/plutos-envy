@@ -1,4 +1,4 @@
-from game.models import Unit, City, Player
+from game.models import Unit, City, Player, GetUnitHandle
 from game.gamelog import game_log
 
 def simulate_day():
@@ -10,23 +10,22 @@ def simulate_day():
     # Next, we handle each city's battle
     for city in City.objects.all():
         # We start by separating the units into attackers and defenders
-        # Most of the time, units will be defenders, so it is easiest to assume all
-        # units are defenders and check which units are actually attackers
-        attackers = {}
-        defenders = city.units
-        for unitName, unit in defenders:
-            if unit.owner != city.owner:
-                attackers.append(defenders.pop(unitName))
+        attackers = city.get_attackers()
+        defenders = city.get_defenders()
+        if attackers == []:
+            game_log('All quiet at {}.'.format(city.name))
+            continue
 
         # Next, we remove attackers and defenders until one side is depleted
-        while attackers != {} and defenders != {}:
+        while attackers != [] and defenders != []:
             game_log('A battle has begun at {}!'.format(city.name))
             simulate_battle(attackers, defenders, city)
-        # If the attackers won, they gain control of the city.
-        # If the defenders won or tied, they retain control.
-        if attackers != {}:
+            # If the attackers won, they gain control of the city.
+            # If the defenders won or tied, they retain control.
+
+        if attackers != []:
             # This doesn't handle simultaneous attacks yet
-            # It is also super inefficient
+            # It is also super inefficientnewOwner = ''
             newOwner = ''
             for attacker in attackers:
                 newOwner = attacker.owner
@@ -41,7 +40,7 @@ def simulate_day():
 
 def simulate_battle(attackers, defenders, city):
     # For the initial version, we will simply kill one attacker and defender per battle.
-    attacker = attackers.pop()
-    defender = defenders.pop()
+    attacker = GetUnitHandle(attackers.pop())
+    defender = GetUnitHandle(defenders.pop())
     attacker.die()
     defender.die()

@@ -38,7 +38,7 @@ def city(request, city_name_slug):
     try:
         city = City.objects.get(slug=city_name_slug)
         context_dict['city_name'] = city.name
-        context_dict['city_units'] = Unit.objects.filter(city=city)
+        context_dict['city_units'] = Unit.objects.filter(currentCity=city)
         context_dict['city_owner'] = city.owner
     except City.DoesNotExist:
         pass
