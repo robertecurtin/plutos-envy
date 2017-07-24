@@ -9,7 +9,7 @@ class Unit(models.Model):
     targetCity = models.CharField(max_length=128)
     slug = models.SlugField(unique=True)
     owner = models.CharField(max_length=128)
-    alive = True
+    alive = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -21,12 +21,11 @@ class Unit(models.Model):
 
     def execute_orders(self):
         # Move the the specified city if one was selected
-        if self.targetCity != '':
+        if self.targetCity != '' and self.targetCity != self.currentCity:
             game_log('{}[{}], is marching from {} to {}!'.format(\
                 self.name, self.owner, self.currentCity, self.targetCity))
             newCity = City.objects.get(slug=self.targetCity)
             self.currentCity = self.targetCity
-            self.targetCity = ''
 
     def die(self):
         # This seems like poor design but idk
