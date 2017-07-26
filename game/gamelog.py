@@ -11,4 +11,5 @@ def game_log(text):
     log.append(text)
 
 def get_game_log_html():
+    global log
     return '<br>'.join(log)

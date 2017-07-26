@@ -12,6 +12,9 @@ def simulate_day_callback(request):
     text = get_game_log_html()
     return HttpResponse(text)
 
+def view_game_log(request):
+    return HttpResponse(get_game_log_html())
+
 def orders(request, unit_name_slug):
     return HttpResponse("Aye aye!")
 
