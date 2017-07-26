@@ -12,4 +12,7 @@ def game_log(text):
 
 def get_game_log_html():
     global log
-    return '<br>'.join(log)
+    try:
+        return '<br>'.join(log)
+    except NameError:
+        return 'The game has not yet begun!'

@@ -6,7 +6,7 @@
 
     <body>
         {% if unit_name %} 
-            {% if alive %}
+            {% if unit_alive %}
                 <h1>{{ unit_name }}</h1>
             {% else %}
                 <h1>The late {{ unit_name }}</h1>
@@ -30,15 +30,17 @@
             {% if unit_target_city %}
                 Destination: {{ unit_target_city }}
             {% else %}
-                Destination: None
+                Destination: 
             {% endif %}
 
             <form action="{% url 'orders' unit_name %}" method = "post">
             {% csrf_token %}
-            {% for city in city_names %}
-            <input type="radio" name="city" id="city{{ forloop.counter }}" value ={{ choice.id }}" />
-            <label "city">{{ city }}</label><br />
-            {% endfor %}
+            <select>
+                {% for city in city_names %}
+                <option value="{{ city }}"> {{ city }}</option>
+                {% endfor %}
+            </select>
+            <br>
             <input type="submit" value="Change destination" />
             <form>
 

@@ -26,10 +26,12 @@ def unit(request, unit_name_slug):
         cities = City.objects.order_by('name')
         cityNames = [city.name for city in cities]
         context_dict['city_names'] = cityNames # Used to determine destination
+        context_dict['unit_slug'] = unit.slug
         context_dict['unit_name'] = unit.name.rstrip("\n\r")
         context_dict['unit_target_city'] = unit.targetCity
         context_dict['unit_owner'] = unit.owner
         context_dict['unit_current_city'] = unit.currentCity
+        context_dict['unit_alive'] = unit.alive
 
     except Unit.DoesNotExist:
         pass
