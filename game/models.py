@@ -1,6 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 from game.gamelog import game_log
+from names import get_full_name
 
 # Note that all handle functions slugify to allow either name or slug input
 def GetCityHandle(targetName):
@@ -55,6 +56,8 @@ class City(models.Model):
     name = models.CharField(max_length=128, unique=True)
     slug = models.SlugField(unique=True)
     owner = models.CharField(max_length=128)
+    production = models.DecimalField(default=1, max_digits=5, decimal_places=0)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(City, self).save(*args, **kwargs)
@@ -75,6 +78,14 @@ class City(models.Model):
         defenders =  [x.name for x in defenders]
         game_log('{} defenders: {}'.format(self.name, defenders))
         return defenders
+
+    def produce_units(self):
+        # Produce new units and assign them to the current player
+        # Todo: Protect agains randomly getting the name of an existing unit
+        newName = get_full_name()
+        unit = Unit.objects.get_or_create(name=newName, owner=self.owner, currentCity=self.name)
+
+
 
     def __str__(self):
         return self.name

@@ -27,12 +27,16 @@ def simulate_day():
             # This doesn't handle simultaneous attacks yet
             # It is also super inefficientnewOwner = ''
             newOwner = ''
-            for attacker in attackers:
+            for attackerName in attackers:
+                attacker = GetUnitHandle(attackerName)
                 newOwner = attacker.owner
             city.change_control(newOwner)
         else:
             game_log('The defenders have held their ground.')
                 
+    # Once battles are finished, we generate new units
+    for city in City.objects.all():
+        city.produce_units()
 
 
 
