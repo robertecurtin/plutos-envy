@@ -35,3 +35,12 @@ names 0.3.0
 If you want to run the server on one computer and connect from other computers on the network, use RunServer.bat.
 
 Note that you will need to update ALLOWED_HOSTS under PlutosEnvy/settings.py with your internal IP address.
+
+## Todo
+Add authentication for individual players so this is actually playable
+
+Make "Change Destination" on unit page actually change destination
+
+Add "Change Destination" to city page, so that player can more conveniently give orders
+
+Figure out what the next steps are necessary to make this at all interesting to play. More features will come later.
